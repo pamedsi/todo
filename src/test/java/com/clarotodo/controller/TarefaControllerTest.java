@@ -25,13 +25,9 @@ class TarefaControllerTest {
     private MockMvc mockMvc;
     @MockBean
     private TarefaService tarefaService;
-    @MockBean
-    private TarefaRequest tarefaDTO;
 
     @Test
     void postNovaTarefaTeste() throws Exception {
-        System.out.println(tarefaDTO.descricao());
-        System.out.println(tarefaDTO.titulo());
         mockMvc.perform(MockMvcRequestBuilders.post("/tarefa")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsBytes(criarTarefaDTO()))
