@@ -44,15 +44,15 @@ public class Tarefa {
 
     public Tarefa() {}
 
-    public UUID getIdentificador() {return this.identificador;}
+    public UUID getIdentificador() { return this.identificador; }
 
     public String getTitulo() { return titulo; }
 
-    public String getDescricao() { return descricao;}
+    public String getDescricao() { return descricao; }
 
-    public void deletar() {this.deletada = true;}
+    public void deletar() { deletada = true; }
 
-    public boolean estaConcluida() {return this.concluida;}
+    public boolean estaConcluida() { return this.concluida; }
 
     public boolean estaDeletada() { return this.deletada; }
 }
