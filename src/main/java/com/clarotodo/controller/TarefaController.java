@@ -1,12 +1,19 @@
 package com.clarotodo.controller;
 
 import com.clarotodo.dto.*;
+import com.clarotodo.service.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
 public class TarefaController implements TarefaAPI {
+    private final TarefaService tarefaService;
+
+    public TarefaController(TarefaService tarefaService) {
+        this.tarefaService = tarefaService;
+    }
+
     @Override
     public void postNovaTarefa(TarefaRequest tarefaRequest) {
     }
