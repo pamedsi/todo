@@ -1,5 +1,7 @@
 package com.clarotodo.controller;
 
+import com.clarotodo.dto.*;
+import com.clarotodo.entity.*;
 import com.fasterxml.jackson.databind.*;
 
 import org.junit.jupiter.api.*;
@@ -19,30 +21,45 @@ import static com.clarotodo.DataHelper.*;
 class TarefaControllerTest {
     @Autowired
     private MockMvc mockMvc;
+    private final TarefaRequest tarefaDTO = criarTarefaDTO();
+    private final Tarefa tarefa = criarTarefa();
 
 
     @Test
     void deveRetornar201AoCriarTarefa() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/tarefa")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsBytes(criarTarefaDTO())))
+                .content(new ObjectMapper().writeValueAsBytes(tarefaDTO)))
                 .andExpect(MockMvcResultMatchers.status().isCreated()
         );
     }
 
     @Test
-    void detalharTarefaTeste() {
+    void deveDetalharTarefa() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/tarefa/" + tarefa.getIdentificador().toString())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.titulo").value(tarefa.getTitulo()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.descricao").value(tarefa.getDescricao()));
+        ;
     }
 
     @Test
-    void concluirTarefaTeste() {
+    void deveConcluirTarefa() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.patch("/tarefa/" + tarefa.getIdentificador().toString()))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
     @Test
-    void listarTodasAsTarefasTeste() {
+    void deveListarTodasAsTarefas() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/tarefa")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    void deletaTodasTarefasTest() {
+    void deveDeletarTarefa() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/tarefa/" + tarefa.getIdentificador().toString()))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 }

@@ -40,4 +40,14 @@ public class Tarefa {
     }
 
     public Tarefa() {}
+
+    public UUID getIdentificador() {return this.identificador;}
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
 }
