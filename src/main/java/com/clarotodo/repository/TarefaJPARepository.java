@@ -8,6 +8,6 @@ import java.util.*;
 
 @Repository
 public interface TarefaJPARepository extends JpaRepository <Tarefa, Long>{
-    Optional<Tarefa> findByIdentificadorAndDeletadoFalseOrderByCriadaEmAsc(UUID identificador);
-    List<Tarefa> findAllByDeletadoFalse();
+    Optional<Tarefa> findByIdentificadorAndDeletadaFalseOrderByCriadaEmAsc(UUID identificador);
+    List<Tarefa> findAllByDeletadaFalse();
 }

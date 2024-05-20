@@ -28,7 +28,7 @@ public class TarefaInfraRepository implements TarefaRepository{
     @Override
     public List<Tarefa> buscarTodasAsTarefas() {
         log.info("[Inicia]: TarefaInfraRepository - buscarTodasAsTarefas()");
-        List<Tarefa> tarefas = tarefaJPARepository.findAllByDeletadoFalse();
+        List<Tarefa> tarefas = tarefaJPARepository.findAllByDeletadaFalse();
         log.info("[Finaliza]: TarefaInfraRepository - buscarTodasAsTarefas()");
         return tarefas;
     }
@@ -36,7 +36,7 @@ public class TarefaInfraRepository implements TarefaRepository{
     @Override
     public Tarefa buscarTarefaPorIdentificador(UUID identificador) {
         log.info("[Inicia]: TarefaInfraRepository - buscarTarefaPorIdentificador()");
-        Tarefa tarefa = tarefaJPARepository.findByIdentificadorAndDeletadoFalseOrderByCriadaEmAsc(identificador).orElseThrow(
+        Tarefa tarefa = tarefaJPARepository.findByIdentificadorAndDeletadaFalseOrderByCriadaEmAsc(identificador).orElseThrow(
                 () -> new APIException("Tarefa não encontrada!", HttpStatus.NOT_FOUND)
         );
         log.info("[Finaliza]: TarefaInfraRepository - buscarTarefaPorIdentificador()");
