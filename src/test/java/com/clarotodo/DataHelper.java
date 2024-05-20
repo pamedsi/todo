@@ -11,4 +11,8 @@ public class DataHelper {
     public static Tarefa criarTarefa() {
         return new Tarefa(criarTarefaDTO());
     }
+
+    public static DetalhesDaTarefa criarDetalhesDaTarefa() {
+        return new DetalhesDaTarefa(criarTarefa());
+    }
 }
