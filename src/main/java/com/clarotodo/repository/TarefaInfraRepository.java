@@ -37,7 +37,10 @@ public class TarefaInfraRepository implements TarefaRepository{
     public Tarefa buscarTarefaPorIdentificador(UUID identificador) {
         log.info("[Inicia]: TarefaInfraRepository - buscarTarefaPorIdentificador()");
         Tarefa tarefa = tarefaJPARepository.findByIdentificadorAndDeletadaFalseOrderByCriadaEmAsc(identificador).orElseThrow(
-                () -> new APIException("Tarefa não encontrada!", HttpStatus.NOT_FOUND)
+                () -> {
+                       log.error("Tarefa não encontrada! Aplicação encerrada.");
+                       return new APIException("Tarefa não encontrada!", HttpStatus.NOT_FOUND);
+                }
         );
         log.info("[Finaliza]: TarefaInfraRepository - buscarTarefaPorIdentificador()");
         return tarefa;
