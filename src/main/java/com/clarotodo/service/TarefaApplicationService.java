@@ -57,6 +57,9 @@ public class TarefaApplicationService implements TarefaService {
     @Override
     public void deletarTarefa(UUID identificadorDaTarefa) {
         log.info("[Inicia]: TarefaApplicationService - deletarTarefa()");
+        Tarefa tarefa = tarefaRepository.buscarTarefaPorIdentificador(identificadorDaTarefa);
+        tarefa.deletar();
+        tarefaRepository.salvarTarefa(tarefa);
         log.info("[Finaliza]: TarefaApplicationService - deletarTarefa()");
     }
 }

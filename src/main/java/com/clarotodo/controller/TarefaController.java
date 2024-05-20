@@ -50,6 +50,7 @@ public class TarefaController implements TarefaAPI {
     @Override
     public void deletaTodasTarefas(UUID identificadorDaTarefa) {
         log.info("[Inicia]: TarefaController - deletaTodasTarefas()");
+        tarefaService.deletarTarefa(identificadorDaTarefa);
         log.info("[Finaliza]: TarefaController - deletaTodasTarefas()\n");
     }
 }
