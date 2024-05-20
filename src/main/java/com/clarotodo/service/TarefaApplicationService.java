@@ -1,9 +1,11 @@
 package com.clarotodo.service;
 
 import com.clarotodo.dto.*;
+import org.springframework.stereotype.*;
 
 import java.util.*;
 
+@Service
 public class TarefaApplicationService implements TarefaService {
     @Override
     public void criarNovaTarefa(TarefaRequest tarefaDTO) {
