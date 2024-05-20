@@ -6,7 +6,7 @@ import java.util.*;
 
 public interface TarefaService {
     void criarNovaTarefa(TarefaRequest tarefaDTO);
-    DetalhesDaTarefa detalharTarefa(UUID identificadorDaTarefa);
+    DetalhesDaTarefa buscarTarefa(UUID identificadorDaTarefa);
     void concluirTarefa(UUID identificadorDaTarefa);
     List<DetalhesDaTarefa> listarTarefas();
     void deletarTarefa(UUID identificadorDaTarefa);

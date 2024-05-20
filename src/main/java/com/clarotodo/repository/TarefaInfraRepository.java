@@ -1,33 +1,45 @@
 package com.clarotodo.repository;
 
-import com.clarotodo.dto.*;
 import com.clarotodo.entity.*;
-import com.clarotodo.service.*;
+import com.clarotodo.exception.*;
+import org.apache.logging.log4j.Logger;
+import org.springframework.http.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
-
 import static org.apache.logging.log4j.LogManager.getLogger;
 
 @Repository
 public class TarefaInfraRepository implements TarefaRepository{
-    private static final org.apache.logging.log4j.Logger log = getLogger(TarefaRepository.class);
-    private final TarefaService tarefaService;
+    private static final Logger log = getLogger(TarefaRepository.class);
+    private final TarefaJPARepository tarefaJPARepository;
 
-    public TarefaInfraRepository(TarefaService tarefaService) {
-        this.tarefaService = tarefaService;
+    public TarefaInfraRepository(TarefaJPARepository tarefaJPARepository) {
+        this.tarefaJPARepository = tarefaJPARepository;
     }
 
     @Override
     public void salvarTarefa(Tarefa tarefa) {
-        log.info("[Inicia] - salvarTarefa()");
-        log.info("[Finaliza] - salvarTarefa()");
+        log.info("[Inicia]: TarefaInfraRepository - salvarTarefa()");
+        tarefaJPARepository.save(tarefa);
+        log.info("[Finaliza]: TarefaInfraRepository - salvarTarefa()");
     }
 
     @Override
-    public List<DetalhesDaTarefa> buscarTarefas() {
-        log.info("[Inicia] - buscarTarefas()");
-        log.info("[Finaliza] - buscarTarefas()");
-        return List.of();
+    public List<Tarefa> buscarTodasAsTarefas() {
+        log.info("[Inicia]: TarefaInfraRepository - buscarTodasAsTarefas()");
+        List<Tarefa> tarefas = tarefaJPARepository.findAllByDeletadoFalse();
+        log.info("[Finaliza]: TarefaInfraRepository - buscarTodasAsTarefas()");
+        return tarefas;
+    }
+
+    @Override
+    public Tarefa buscarTarefaPorIdentificador(UUID identificador) {
+        log.info("[Inicia]: TarefaInfraRepository - buscarTarefaPorIdentificador()");
+        Tarefa tarefa = tarefaJPARepository.findByIdentificadorAndDeletadoFalseOrderByCriadaEmAsc(identificador).orElseThrow(
+                () -> new APIException("Tarefa não encontrada!", HttpStatus.NOT_FOUND)
+        );
+        log.info("[Finaliza]: TarefaInfraRepository - buscarTarefaPorIdentificador()");
+        return tarefa;
     }
 }
