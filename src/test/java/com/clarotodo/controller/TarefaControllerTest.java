@@ -30,8 +30,7 @@ class TarefaControllerTest {
     void postNovaTarefaTeste() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/tarefa")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsBytes(criarTarefaDTO()))
-                .accept(MediaType.APPLICATION_JSON))
+                .content(new ObjectMapper().writeValueAsBytes(criarTarefaDTO())))
                 .andExpect(MockMvcResultMatchers.status().isCreated()
                 );
     }
