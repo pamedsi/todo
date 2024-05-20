@@ -35,6 +35,7 @@ public class TarefaController implements TarefaAPI {
     @Override
     public void concluirTarefa(UUID identificadorDaTarefa) {
         log.info("[Inicia]: TarefaController - concluirTarefa()");
+        tarefaService.concluirTarefa(identificadorDaTarefa);
         log.info("[Finaliza]: TarefaController - concluirTarefa()\n");
     }
 
