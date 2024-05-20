@@ -1,6 +1,5 @@
 package com.clarotodo.controller;
 
-import com.clarotodo.dto.*;
 import com.clarotodo.service.*;
 
 import com.fasterxml.jackson.databind.*;
