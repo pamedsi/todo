@@ -25,7 +25,7 @@ public class Tarefa {
     @Column (nullable = false, name = "updatedAt")
     private LocalDateTime ultimaAtualizacao;
     @Column (nullable = false, name = "deleted")
-    private boolean deletado;
+    private boolean deletada;
 
     public Tarefa(TarefaRequest tarefaDTO) {
         identificador = UUID.randomUUID();
@@ -34,7 +34,7 @@ public class Tarefa {
         concluida = false;
         criadaEm = LocalDateTime.now();
         ultimaAtualizacao = LocalDateTime.now();
-        deletado = false;
+        deletada = false;
     }
 
     public void concluirTarefa() {
@@ -50,7 +50,9 @@ public class Tarefa {
 
     public String getDescricao() { return descricao;}
 
-    public void deletar() {this.deletado = true;}
+    public void deletar() {this.deletada = true;}
 
     public boolean estaConcluida() {return this.concluida;}
+
+    public boolean estaDeletada() { return this.deletada; }
 }
