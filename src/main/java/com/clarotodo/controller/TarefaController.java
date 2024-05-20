@@ -9,7 +9,6 @@ import java.util.*;
 public class TarefaController implements TarefaAPI {
     @Override
     public void postNovaTarefa(TarefaRequest tarefaRequest) {
-
     }
 
     @Override

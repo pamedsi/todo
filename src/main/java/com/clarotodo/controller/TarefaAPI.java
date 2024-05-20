@@ -1,6 +1,7 @@
 package com.clarotodo.controller;
 
 import com.clarotodo.dto.*;
+import jakarta.validation.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,7 @@ import java.util.*;
 public interface TarefaAPI {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    void postNovaTarefa(@RequestBody TarefaRequest tarefaRequest);
+    void postNovaTarefa(@RequestBody @Valid TarefaRequest tarefaRequest);
 
     @GetMapping("/{identificadorDaTarefa}")
     @ResponseStatus(code = HttpStatus.OK)
