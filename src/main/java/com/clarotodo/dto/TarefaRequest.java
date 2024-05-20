@@ -1,4 +1,6 @@
 package com.clarotodo.dto;
 
-public record TarefaRequest() {
-}
+public record TarefaRequest(
+        String titulo,
+        String descricao
+) {}
