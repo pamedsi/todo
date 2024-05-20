@@ -1,7 +1,5 @@
 package com.clarotodo.exception;
 
-import java.util.*;
-
 public record DetalhesDaException(
         String titulo,
         String mensagem,
