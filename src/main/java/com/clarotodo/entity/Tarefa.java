@@ -20,9 +20,9 @@ public class Tarefa {
     private String descricao;
     @Column (nullable = false, name = "completed")
     private boolean concluida;
-    @Column (nullable = false, name = "createdAt")
+    @Column (nullable = false, name = "created_at")
     private LocalDateTime criadaEm;
-    @Column (nullable = false, name = "updatedAt")
+    @Column (nullable = false, name = "updated_at")
     private LocalDateTime ultimaAtualizacao;
     @Column (nullable = false, name = "deleted")
     private boolean deletada;
