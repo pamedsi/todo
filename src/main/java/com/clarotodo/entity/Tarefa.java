@@ -38,7 +38,7 @@ public class Tarefa {
     }
 
     public void concluirTarefa() {
-        this.concluida = true;
+        concluida = true;
         ultimaAtualizacao = LocalDateTime.now();
     }
 
