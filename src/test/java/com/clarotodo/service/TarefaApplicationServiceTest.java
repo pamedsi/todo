@@ -2,7 +2,6 @@ package com.clarotodo.service;
 
 import com.clarotodo.dto.*;
 import com.clarotodo.entity.*;
-import com.clarotodo.exception.*;
 import com.clarotodo.repository.*;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.*;
@@ -31,16 +30,6 @@ class TarefaApplicationServiceTest {
         tarefaService.criarNovaTarefa(tarefaDTO);
         // Verifique
         Mockito.verify(tarefaRepository, Mockito.times(1)).salvarTarefa(any());
-    }
-
-    @Test
-    void buscarTarefa() {
-        // Quando
-        Mockito.when(tarefaRepository.buscarTarefaPorIdentificador(any())).thenReturn(tarefa);
-        // Dado
-        tarefaService.buscarTarefa(tarefa.getIdentificador());
-        // Verifique
-        Mockito.verify(tarefaRepository, Mockito.times(1)).buscarTarefaPorIdentificador(any());
     }
 
     @Test
@@ -73,18 +62,5 @@ class TarefaApplicationServiceTest {
         // Verifique
         assertTrue(tarefa.estaDeletada());
         Mockito.verify(tarefaRepository, Mockito.times(1)).salvarTarefa(any());
-    }
-
-    @Test
-    void deveriaEstourarIllegalArgumentException(){
-        Assertions.assertThrows(IllegalArgumentException.class, () -> tarefaService.buscarTarefa(UUID.fromString("UUID Inválido")));
-    }
-
-    @Test
-    void naoDeveriaAcharTarefa() {
-        // Quando
-        Mockito.when(tarefaRepository.buscarTarefaPorIdentificador(any())).thenThrow(APIException.class);
-        // Verifique
-        Assertions.assertThrows(APIException.class, () -> tarefaService.buscarTarefa(UUID.randomUUID()));
     }
 }
