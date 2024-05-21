@@ -28,15 +28,6 @@ public class TarefaApplicationService implements TarefaService {
     }
 
     @Override
-    public DetalhesDaTarefa buscarTarefa(UUID identificadorDaTarefa) {
-        log.info("[Inicia]: TarefaApplicationService - detalharTarefa()");
-        Tarefa tarefaDePersistencia = tarefaRepository.buscarTarefaPorIdentificador(identificadorDaTarefa);
-        DetalhesDaTarefa tarefaDTO = new DetalhesDaTarefa(tarefaDePersistencia);
-        log.info("[Finaliza]: TarefaApplicationService - detalharTarefa()");
-        return tarefaDTO;
-    }
-
-    @Override
     public void concluirTarefa(UUID identificadorDaTarefa) {
         log.info("[Inicia]: TarefaApplicationService - concluirTarefa()");
         Tarefa tarefa = tarefaRepository.buscarTarefaPorIdentificador(identificadorDaTarefa);
