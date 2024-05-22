@@ -24,5 +24,5 @@ public interface TarefaAPI {
 
     @DeleteMapping("/{identificadorDaTarefa}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    void deletaTodasTarefas(@PathVariable @UUID(message = "Este UUID não é válido!") String identificadorDaTarefa);
+    void deletarTarefa(@PathVariable @UUID(message = "Este UUID não é válido!") String identificadorDaTarefa);
 }
