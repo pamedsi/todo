@@ -20,14 +20,13 @@ $```cd todo```
 Executando com Docker Compose:<br>
 Após clonar o repositório, execute o seguinte comando para iniciar o projeto:
 
-$```docker-compose up -d```
+$```docker compose up```
 
-Este comando iniciará todas as imagens necessárias definidas no arquivo docker-compose.yml e colocará o projeto em execução no modo detached (-d).
-Deixando seu terminal livre para ser utilizado.
+Este comando iniciará todas as imagens necessárias definidas no arquivo docker-compose.yml e colocará o projeto em execução.
 
 Para parar o serviço, você pode usar o comando:
 
-$```docker-compose down```
+$```docker compose down```
 
 # Documentação:
 Para acessar a documentação da sua API através do Swagger UI no localhost, você deve seguir estes passos:
