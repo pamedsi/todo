@@ -5,6 +5,7 @@ import jakarta.servlet.http.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.apache.logging.log4j.Logger;
+import org.springframework.web.servlet.resource.*;
 
 import java.time.*;
 
@@ -23,6 +24,21 @@ public class RestExceptionHandler {
                         "Ocorreu um erro!",
                         exception.getMessage(),
                         exception.getHttpStatusInNumber(),
+                        LocalDateTime.now().toString(),
+                        request.getServletPath(),
+                        request.getMethod()
+                ));
+    }
+
+    @ExceptionHandler (NoResourceFoundException.class)
+    public ResponseEntity<DetalhesDaException> APIExceptionHandler(NoResourceFoundException exception, HttpServletRequest request) {
+        log.error(exception.getClass());
+        exception.printStackTrace();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
+                new DetalhesDaException(
+                        "Not Found",
+                        "Rota não encontrada, verifique se o endpoint e o método estão corretos.",
+                        404,
                         LocalDateTime.now().toString(),
                         request.getServletPath(),
                         request.getMethod()
