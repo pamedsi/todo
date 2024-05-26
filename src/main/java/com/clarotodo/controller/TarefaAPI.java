@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequestMapping("/tarefa")
+@RequestMapping("/api/tarefa")
 public interface TarefaAPI {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
