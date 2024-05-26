@@ -35,7 +35,7 @@ class TarefaControllerTest {
 
     @Test
     void deveRetornar201AoCriarTarefa() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/tarefa")
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/tarefa")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsBytes(tarefaDTO)))
                 .andExpect(MockMvcResultMatchers.status().isCreated()
@@ -46,14 +46,14 @@ class TarefaControllerTest {
     @Test
     void deveConcluirTarefa() throws Exception {
         Mockito.when(tarefaRepository.buscarTarefaPorIdentificador(any())).thenReturn(tarefa);
-        mockMvc.perform(MockMvcRequestBuilders.patch("/tarefa/" + tarefa.getIdentificador().toString()))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/api/tarefa/" + tarefa.getIdentificador().toString()))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
         Mockito.verify(tarefaService, Mockito.times(1)).concluirTarefa(any());
     }
 
     @Test
     void deveListarTodasAsTarefas() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/tarefa")
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/tarefa")
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
         Mockito.verify(tarefaService, Mockito.times(1)).listarTarefas();
@@ -62,7 +62,7 @@ class TarefaControllerTest {
     @Test
     void deveDeletarTarefa() throws Exception {
         Mockito.when(tarefaRepository.buscarTarefaPorIdentificador(any())).thenReturn(tarefa);
-        mockMvc.perform(MockMvcRequestBuilders.delete("/tarefa/" + tarefa.getIdentificador().toString()))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/tarefa/" + tarefa.getIdentificador().toString()))
                 .andExpect(MockMvcResultMatchers.status().isNoContent());
         Mockito.verify(tarefaService, Mockito.times(1)).deletarTarefa(any());
     }
