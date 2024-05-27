@@ -4,6 +4,7 @@ import com.clarotodo.dto.*;
 import com.clarotodo.entity.*;
 import com.clarotodo.repository.*;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.*;
 
 import java.util.*;
@@ -37,10 +38,10 @@ public class TarefaApplicationService implements TarefaService {
     }
 
     @Override
-    public List<DetalhesDaTarefa> listarTarefas() {
+    public Page<DetalhesDaTarefa> listarTarefas(Pageable pageable) {
         log.info("[Inicia]: TarefaApplicationService - listarTarefas()");
-        List<Tarefa> tarefas = tarefaRepository.buscarTodasAsTarefas();
-        List<DetalhesDaTarefa> tarefasDTO = DetalhesDaTarefa.converterVariosParaDTO(tarefas);
+        Page<Tarefa> tarefas = tarefaRepository.buscarTodasAsTarefas(pageable);
+        Page<DetalhesDaTarefa> tarefasDTO = DetalhesDaTarefa.converterParaPageDTO(tarefas);
         log.info("[Finaliza]: TarefaApplicationService - listarTarefas()");
         return tarefasDTO;
     }

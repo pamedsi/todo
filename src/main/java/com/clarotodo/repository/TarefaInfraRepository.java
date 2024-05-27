@@ -3,6 +3,7 @@ package com.clarotodo.repository;
 import com.clarotodo.entity.*;
 import com.clarotodo.exception.*;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.*;
 import org.springframework.http.*;
 import org.springframework.stereotype.*;
 
@@ -26,9 +27,9 @@ public class TarefaInfraRepository implements TarefaRepository{
     }
 
     @Override
-    public List<Tarefa> buscarTodasAsTarefas() {
+    public Page<Tarefa> buscarTodasAsTarefas(Pageable pageable) {
         log.info("[Inicia]: TarefaInfraRepository - buscarTodasAsTarefas()");
-        List<Tarefa> tarefas = tarefaJPARepository.findAllByDeletadaFalse();
+        Page<Tarefa> tarefas = tarefaJPARepository.findAllByDeletadaFalse(pageable);
         log.info("[Finaliza]: TarefaInfraRepository - buscarTodasAsTarefas()");
         return tarefas;
     }

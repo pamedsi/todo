@@ -3,10 +3,10 @@ package com.clarotodo.controller;
 import com.clarotodo.dto.*;
 import jakarta.validation.*;
 import org.hibernate.validator.constraints.*;
+import org.springframework.data.domain.*;
+import org.springframework.data.web.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RequestMapping("/api/tarefa")
 public interface TarefaAPI {
@@ -20,7 +20,7 @@ public interface TarefaAPI {
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
-    List<DetalhesDaTarefa> listarTodasAsTarefas();
+    Page<DetalhesDaTarefa> listarTodasAsTarefas(@PageableDefault(size = 12, direction = Sort.Direction.ASC, sort = { "titulo" }) Pageable pageable);
 
     @DeleteMapping("/{identificadorDaTarefa}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)

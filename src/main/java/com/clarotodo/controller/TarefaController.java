@@ -3,6 +3,7 @@ package com.clarotodo.controller;
 import com.clarotodo.dto.*;
 import com.clarotodo.service.*;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -32,9 +33,9 @@ public class TarefaController implements TarefaAPI {
     }
 
     @Override
-    public List<DetalhesDaTarefa> listarTodasAsTarefas() {
+    public Page<DetalhesDaTarefa> listarTodasAsTarefas(Pageable pageable) {
         log.info("[Inicia]: TarefaController - listarTodasAsTarefas()");
-        List<DetalhesDaTarefa> todasAsTarefas = tarefaService.listarTarefas();
+        Page<DetalhesDaTarefa> todasAsTarefas = tarefaService.listarTarefas(pageable);
         log.info("[Finaliza]: TarefaController - listarTodasAsTarefas()\n");
         return todasAsTarefas;
     }
