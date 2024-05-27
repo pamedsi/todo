@@ -8,6 +8,6 @@ import java.util.*;
 public interface TarefaService {
     void criarNovaTarefa(TarefaRequest tarefaDTO);
     void concluirTarefa(UUID identificadorDaTarefa);
-    Page<DetalhesDaTarefa> listarTarefas(Pageable pageable);
+    Page<DetalhesDaTarefa> listarTarefas(String termo, Pageable pageable);
     void deletarTarefa(UUID identificadorDaTarefa);
 }

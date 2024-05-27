@@ -33,11 +33,11 @@ public class TarefaController implements TarefaAPI {
     }
 
     @Override
-    public Page<DetalhesDaTarefa> listarTodasAsTarefas(Pageable pageable) {
-        log.info("[Inicia]: TarefaController - listarTodasAsTarefas()");
-        Page<DetalhesDaTarefa> todasAsTarefas = tarefaService.listarTarefas(pageable);
-        log.info("[Finaliza]: TarefaController - listarTodasAsTarefas()\n");
-        return todasAsTarefas;
+    public Page<DetalhesDaTarefa> listarTarefas(String termo, Pageable pageable) {
+        log.info("[Inicia]: TarefaController - pesquisarTarefas()");
+        Page<DetalhesDaTarefa> tarefasEncontradas = tarefaService.listarTarefas(termo, pageable);
+        log.info("[Finaliza]: TarefaController - pesquisarTarefas()");
+        return tarefasEncontradas;
     }
 
     @Override

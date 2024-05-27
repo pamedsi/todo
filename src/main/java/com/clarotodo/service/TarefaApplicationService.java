@@ -38,9 +38,9 @@ public class TarefaApplicationService implements TarefaService {
     }
 
     @Override
-    public Page<DetalhesDaTarefa> listarTarefas(Pageable pageable) {
+    public Page<DetalhesDaTarefa> listarTarefas(String termo, Pageable pageable) {
         log.info("[Inicia]: TarefaApplicationService - listarTarefas()");
-        Page<Tarefa> tarefas = tarefaRepository.buscarTodasAsTarefas(pageable);
+        Page<Tarefa> tarefas = tarefaRepository.listarTarefas(termo, pageable);
         Page<DetalhesDaTarefa> tarefasDTO = DetalhesDaTarefa.converterParaPageDTO(tarefas);
         log.info("[Finaliza]: TarefaApplicationService - listarTarefas()");
         return tarefasDTO;
