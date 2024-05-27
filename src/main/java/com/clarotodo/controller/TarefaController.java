@@ -33,9 +33,9 @@ public class TarefaController implements TarefaAPI {
     }
 
     @Override
-    public Page<DetalhesDaTarefa> listarTarefas(String termo, Pageable pageable) {
+    public Page<DetalhesDaTarefa> listarTarefas(String termo, String done, Pageable pageable) {
         log.info("[Inicia]: TarefaController - pesquisarTarefas()");
-        Page<DetalhesDaTarefa> tarefasEncontradas = tarefaService.listarTarefas(termo, pageable);
+        Page<DetalhesDaTarefa> tarefasEncontradas = tarefaService.listarTarefas(termo, done, pageable);
         log.info("[Finaliza]: TarefaController - pesquisarTarefas()");
         return tarefasEncontradas;
     }

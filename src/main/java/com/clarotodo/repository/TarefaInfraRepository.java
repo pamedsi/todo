@@ -44,35 +44,40 @@ public class TarefaInfraRepository implements TarefaRepository {
     }
 
     @Override
-    public Page<Tarefa> listarTarefas(String  termo, Pageable pageable) {
+    public Page<Tarefa> listarTarefas(String  termo, String concluida, Pageable pageable) {
         log.info("[Inicia] TarefaInfraRepository - pesquisarTarefa()");
         CriteriaQuery<Tarefa> criteriaQuery = criteriaBuilder.createQuery(Tarefa.class);
         Root<Tarefa> root = criteriaQuery.from(Tarefa.class);
-        Predicate queryPredicate = getSearchProductsPredicate(root, termo);
+        Predicate queryPredicate = getSearchProductsPredicate(root, concluida, termo);
 
         criteriaQuery.where(queryPredicate);
         criteriaQuery.orderBy(criteriaBuilder.asc(root.get("titulo")));
         TypedQuery<Tarefa> query = entityManager.createQuery(criteriaQuery);
         query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
         query.setMaxResults(pageable.getPageSize());
-        Long productsCount = getSearchProductsCount(termo);
+        Long productsCount = getSearchProductsCount(termo, concluida);
         Page<Tarefa> result = new PageImpl<>(query.getResultList(), pageable, productsCount);
         log.info("[Finaliza] TarefaInfraRepository - pesquisarTarefa()");
         return result;
     }
 
-    private Predicate getSearchProductsPredicate(Root<Tarefa> root, String term){
+    private Predicate getSearchProductsPredicate(Root<Tarefa> root, String concluida, String term){
         Predicate tituloPredicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("titulo")), "%" + term.toLowerCase() + "%");
         Predicate descricaoPredicate = criteriaBuilder.like(criteriaBuilder.lower(root.get("descricao")), "%" + term.toLowerCase() + "%");
         Predicate orPredicate = criteriaBuilder.or(tituloPredicate, descricaoPredicate);
         Predicate deletedPredicate = criteriaBuilder.equal(root.get("deletada"), false);
+
+        if (concluida.equals("true")) {
+            Predicate concluidaPredicate = criteriaBuilder.equal(root.get("concluida"), true);
+            return criteriaBuilder.and(orPredicate, concluidaPredicate, deletedPredicate);
+        }
         return criteriaBuilder.and(orPredicate, deletedPredicate);
     }
 
-    private Long getSearchProductsCount(String termo) {
+    private Long getSearchProductsCount(String termo, String concluida) {
         CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
         Root<Tarefa> countRoot = countQuery.from(Tarefa.class);
-        Predicate predicate = getSearchProductsPredicate(countRoot, termo);
+        Predicate predicate = getSearchProductsPredicate(countRoot, concluida, termo);
         countQuery.select(criteriaBuilder.count(countRoot)).where(predicate);
         return entityManager.createQuery(countQuery).getSingleResult();
     }
