@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.*;
 
 import java.time.*;
+import java.util.*;
 
 import static org.apache.logging.log4j.LogManager.getLogger;
 
@@ -16,31 +17,18 @@ import static org.apache.logging.log4j.LogManager.getLogger;
 public class BadRequestExceptionHandler {
     private static final org.apache.logging.log4j.Logger log = getLogger(TarefaRepository.class);
 
-    @ExceptionHandler (HandlerMethodValidationException.class)
-    public ResponseEntity<DetalhesDaException> badRequestHandler(HandlerMethodValidationException exception, HttpServletRequest request) {
+    @ExceptionHandler ({HandlerMethodValidationException.class, MethodArgumentNotValidException.class})
+    public ResponseEntity<DetalhesDaException> badRequestHandler(Exception exception, HttpServletRequest request) {
         log.info(exception.getClass());
         log.error(exception.getMessage());
-        String errors = exception.getAllErrors().toString();
+        String errors;
+        if (exception instanceof HandlerMethodValidationException) {errors = ((HandlerMethodValidationException) exception).getAllErrors().toString();}
+        else if (exception instanceof MethodArgumentNotValidException) {errors = ((MethodArgumentNotValidException) exception).getAllErrors().toString();}
+        else return null;
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new DetalhesDaException(
                         "Bad Request",
-                        DetalhesDaException.getDefaultMessage(errors),
-                        400,
-                        LocalDateTime.now().toString(),
-                        request.getServletPath(),
-                        request.getMethod()
-                ));
-        }
-
-    @ExceptionHandler (MethodArgumentNotValidException.class)
-    public ResponseEntity<DetalhesDaException> badRequestHandler(MethodArgumentNotValidException exception, HttpServletRequest request) {
-        log.info(exception.getClass());
-        log.error(exception.getMessage());
-        String errors = exception.getAllErrors().toString();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                new DetalhesDaException(
-                        "Bad Request",
-                        DetalhesDaException.getDefaultMessage(errors),
+                        getDefaultMessage(errors),
                         400,
                         LocalDateTime.now().toString(),
                         request.getServletPath(),
@@ -61,6 +49,12 @@ public class BadRequestExceptionHandler {
                         request.getServletPath(),
                         request.getMethod()
                 ));
+    }
+    private String getDefaultMessage(String errorMessage) {
+        return List.of(errorMessage.split("default message "))
+                .getLast()
+                .replaceAll("\\[", "")
+                .replaceAll("]", "");
     }
 }
 
