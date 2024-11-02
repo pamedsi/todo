@@ -55,4 +55,10 @@ public class Tarefa {
     public boolean estaConcluida() { return this.concluida; }
 
     public boolean estaDeletada() { return this.deletada; }
+
+    public void atualizarTarefa(TarefaRequest tarefaRequest) {
+        titulo = tarefaRequest.titulo();
+        descricao = tarefaRequest.descricao();
+        ultimaAtualizacao = LocalDateTime.now();
+    }
 }
