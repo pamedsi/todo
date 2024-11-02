@@ -26,9 +26,16 @@ public class TarefaController implements TarefaAPI {
     }
 
     @Override
-    public void concluirTarefa(String identificadorDaTarefa) {
+    public void putEditarTarefa(UUID identificadorDaTarefa, TarefaRequest tarefaRequest) {
+        log.info("[Inicia]: TarefaController - putEditarTarefa()");
+        tarefaService.editarTarefa(identificadorDaTarefa, tarefaRequest);
+        log.info("[Finaliza]: TarefaController - putEditarTarefa()\n");
+    }
+
+    @Override
+    public void concluirTarefa(UUID identificadorDaTarefa) {
         log.info("[Inicia]: TarefaController - concluirTarefa()");
-        tarefaService.concluirTarefa(UUID.fromString(identificadorDaTarefa));
+        tarefaService.concluirTarefa(identificadorDaTarefa);
         log.info("[Finaliza]: TarefaController - concluirTarefa()\n");
     }
 
@@ -41,9 +48,9 @@ public class TarefaController implements TarefaAPI {
     }
 
     @Override
-    public void deletarTarefa(String identificadorDaTarefa) {
+    public void deletarTarefa(UUID identificadorDaTarefa) {
         log.info("[Inicia]: TarefaController - deletaTodasTarefas()");
-        tarefaService.deletarTarefa(UUID.fromString(identificadorDaTarefa));
+        tarefaService.deletarTarefa(identificadorDaTarefa);
         log.info("[Finaliza]: TarefaController - deletaTodasTarefas()\n");
     }
 }

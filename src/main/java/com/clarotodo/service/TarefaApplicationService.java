@@ -33,7 +33,6 @@ public class TarefaApplicationService implements TarefaService {
         log.info("[Inicia]: TarefaApplicationService - concluirTarefa()");
         Tarefa tarefa = tarefaRepository.buscarTarefaPorIdentificador(identificadorDaTarefa);
         tarefa.concluirTarefa();
-        tarefaRepository.salvarTarefa(tarefa);
         log.info("[Finaliza]: TarefaApplicationService - concluirTarefa()");
     }
 
@@ -51,8 +50,15 @@ public class TarefaApplicationService implements TarefaService {
         log.info("[Inicia]: TarefaApplicationService - deletarTarefa()");
         Tarefa tarefa = tarefaRepository.buscarTarefaPorIdentificador(identificadorDaTarefa);
         tarefa.deletar();
-        tarefaRepository.salvarTarefa(tarefa);
         log.info("[Finaliza]: TarefaApplicationService - deletarTarefa()");
+    }
+
+    @Override
+    public void editarTarefa(UUID identificadorDaTarefa, TarefaRequest tarefaRequest) {
+        log.info("[Inicia]: TarefaApplicationService - editarTarefa()");
+        Tarefa tarefa = tarefaRepository.buscarTarefaPorIdentificador(identificadorDaTarefa);
+        tarefa.atualizarTarefa(tarefaRequest);
+        log.info("[Finaliza]: TarefaApplicationService - editarTarefa()");
     }
 }
 

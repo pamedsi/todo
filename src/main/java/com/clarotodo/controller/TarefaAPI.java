@@ -2,11 +2,12 @@ package com.clarotodo.controller;
 
 import com.clarotodo.dto.*;
 import jakarta.validation.*;
-import org.hibernate.validator.constraints.*;
 import org.springframework.data.domain.*;
 import org.springframework.data.web.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @RequestMapping("/api/tarefa")
 public interface TarefaAPI {
@@ -14,9 +15,13 @@ public interface TarefaAPI {
     @ResponseStatus(code = HttpStatus.CREATED)
     void postNovaTarefa(@RequestBody @Valid TarefaRequest tarefaRequest);
 
+    @PutMapping("/{identificadorDaTarefa}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    void putEditarTarefa(@PathVariable UUID identificadorDaTarefa, @RequestBody @Valid TarefaRequest tarefaRequest);
+
     @PatchMapping("/{identificadorDaTarefa}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    void concluirTarefa(@PathVariable @UUID(message = "Este UUID não é válido!") String identificadorDaTarefa);
+    void concluirTarefa(@PathVariable UUID identificadorDaTarefa);
 
     @GetMapping
     @ResponseStatus(code = HttpStatus.OK)
@@ -28,5 +33,5 @@ public interface TarefaAPI {
 
     @DeleteMapping("/{identificadorDaTarefa}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    void deletarTarefa(@PathVariable @UUID(message = "Este UUID não é válido!") String identificadorDaTarefa);
+    void deletarTarefa(@PathVariable UUID identificadorDaTarefa);
 }
