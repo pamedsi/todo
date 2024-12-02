@@ -8,5 +8,6 @@ public record TarefaRequest(
         @Length(max = 255, message = "Titulo não pode ser maior que 255 caracteres.")
         String titulo,
         @NotBlank (message = "Campo 'descricao' não pode estar vazio")
-        String descricao
+        String descricao,
+        boolean concluida
 ) {}

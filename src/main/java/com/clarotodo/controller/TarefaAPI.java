@@ -24,12 +24,14 @@ public interface TarefaAPI {
     void concluirTarefa(@PathVariable UUID identificadorDaTarefa);
 
     @GetMapping
-    @ResponseStatus(code = HttpStatus.OK)
     Page<DetalhesDaTarefa> listarTarefas(
             @RequestParam(value = "query", required = false, defaultValue = "") String query,
             @RequestParam(value = "done", required = false, defaultValue = "") String done,
             @PageableDefault(size = 12, direction = Sort.Direction.ASC, sort = { "titulo" }) Pageable pageable
     );
+
+    @GetMapping
+    DetalhesDaTarefa getTarefa(UUID identificadorDaTarefa);
 
     @DeleteMapping("/{identificadorDaTarefa}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)

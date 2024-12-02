@@ -60,5 +60,14 @@ public class TarefaApplicationService implements TarefaService {
         tarefa.atualizarTarefa(tarefaRequest);
         log.info("[Finaliza]: TarefaApplicationService - editarTarefa()");
     }
+
+    @Override
+    public DetalhesDaTarefa buscarTarefa(UUID identificadorDaTarefa) {
+        log.info("[Inicia]: TarefaApplicationService - buscarTarefa()");
+        Tarefa tarefa = tarefaRepository.buscarTarefaPorIdentificador(identificadorDaTarefa);
+        DetalhesDaTarefa tarefaDTO = new DetalhesDaTarefa(tarefa);
+        log.info("[Finaliza]: TarefaApplicationService - buscarTarefa()");
+        return tarefaDTO;
+    }
 }
 

@@ -15,4 +15,5 @@ public interface TarefaService {
     void deletarTarefa(UUID identificadorDaTarefa);
     @Transactional
     void editarTarefa(UUID identificadorDaTarefa, TarefaRequest tarefaRequest);
+    DetalhesDaTarefa buscarTarefa(UUID identificadorDaTarefa);
 }

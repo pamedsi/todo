@@ -48,6 +48,14 @@ public class TarefaController implements TarefaAPI {
     }
 
     @Override
+    public DetalhesDaTarefa getTarefa(UUID identificadorDaTarefa) {
+        log.info("[Inicia]: TarefaController - getTarefa()");
+        DetalhesDaTarefa tarefa = tarefaService.buscarTarefa(identificadorDaTarefa);
+        log.info("[Finaliza]: TarefaController - getTarefa()");
+        return tarefa;
+    }
+
+    @Override
     public void deletarTarefa(UUID identificadorDaTarefa) {
         log.info("[Inicia]: TarefaController - deletaTodasTarefas()");
         tarefaService.deletarTarefa(identificadorDaTarefa);

@@ -22,7 +22,7 @@ public class Tarefa {
     private boolean concluida;
     @Column (nullable = false, name = "created_at")
     private LocalDateTime criadaEm;
-    @Column (nullable = false, name = "updated_at")
+    @Column (name = "updated_at")
     private LocalDateTime ultimaAtualizacao;
     @Column (nullable = false, name = "deleted")
     private boolean deletada;
@@ -31,9 +31,8 @@ public class Tarefa {
         identificador = UUID.randomUUID();
         titulo = tarefaDTO.titulo();
         descricao = tarefaDTO.descricao();
-        concluida = false;
+        concluida = tarefaDTO.concluida();
         criadaEm = LocalDateTime.now();
-        ultimaAtualizacao = LocalDateTime.now();
         deletada = false;
     }
 
