@@ -30,8 +30,8 @@ public interface TarefaAPI {
             @PageableDefault(size = 12, direction = Sort.Direction.ASC, sort = { "titulo" }) Pageable pageable
     );
 
-    @GetMapping
-    DetalhesDaTarefa getTarefa(UUID identificadorDaTarefa);
+    @GetMapping("/{identificadorDaTarefa}")
+    DetalhesDaTarefa getTarefa(@PathVariable UUID identificadorDaTarefa);
 
     @DeleteMapping("/{identificadorDaTarefa}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
